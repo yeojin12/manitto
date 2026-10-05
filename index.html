@@ -1,0 +1,2589 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>마니또</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+
+    :root {
+
+      --bg: #fff8f8;
+
+      --card: #ffffff;
+
+      --text: #222222;
+
+      --muted: #888888;
+
+      --line: #eeeeee;
+
+      --pink: #ff7893;
+
+      --pink-light: #fff0f3;
+
+      --shadow:
+        0 14px 40px
+        rgba(0,0,0,.08);
+
+    }
+
+
+    * {
+
+      box-sizing:
+        border-box;
+
+    }
+
+
+    body {
+
+      margin: 0;
+
+      min-height:
+        100vh;
+
+      background:
+        var(--bg);
+
+      font-family:
+        Pretendard,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+      color:
+        var(--text);
+
+      padding:
+        28px 16px 60px;
+
+    }
+
+
+    .wrap {
+
+      width:
+        100%;
+
+      max-width:
+        520px;
+
+      margin:
+        0 auto;
+
+    }
+
+
+    .card {
+
+      background:
+        var(--card);
+
+      border-radius:
+        24px;
+
+      padding:
+        26px 22px;
+
+      box-shadow:
+        var(--shadow);
+
+    }
+
+
+    h1 {
+
+      margin:
+        2px 0 8px;
+
+      font-size:
+        30px;
+
+      text-align:
+        center;
+
+    }
+
+
+    .sub {
+
+      margin-bottom:
+        24px;
+
+      color:
+        var(--muted);
+
+      font-size:
+        14px;
+
+      line-height:
+        1.7;
+
+      text-align:
+        center;
+
+    }
+
+
+
+    /* =========================
+       탭
+    ========================= */
+
+
+    .tab-radio {
+
+      display:
+        none;
+
+    }
+
+
+    .tabs {
+
+      display:
+        grid;
+
+      grid-template-columns:
+        repeat(3, 1fr);
+
+      gap:
+        8px;
+
+      margin-bottom:
+        20px;
+
+    }
+
+
+    .tab-label {
+
+      margin:
+        0;
+
+      padding:
+        12px 8px;
+
+      border-radius:
+        12px;
+
+      background:
+        #f5f5f5;
+
+      color:
+        #666;
+
+      font-size:
+        15px;
+
+      font-weight:
+        800;
+
+      text-align:
+        center;
+
+      cursor:
+        pointer;
+
+      user-select:
+        none;
+
+    }
+
+
+    #tabJoinRadio:checked
+    ~ .tabs
+    label[for="tabJoinRadio"],
+
+    #tabCreateRadio:checked
+    ~ .tabs
+    label[for="tabCreateRadio"],
+
+    #tabAdminRadio:checked
+    ~ .tabs
+    label[for="tabAdminRadio"] {
+
+      background:
+        var(--pink-light);
+
+      color:
+        #ff5f7c;
+
+    }
+
+
+    .view {
+
+      display:
+        none;
+
+    }
+
+
+    #tabJoinRadio:checked
+    ~ #join {
+
+      display:
+        block;
+
+    }
+
+
+    #tabCreateRadio:checked
+    ~ #create {
+
+      display:
+        block;
+
+    }
+
+
+    #tabAdminRadio:checked
+    ~ #admin {
+
+      display:
+        block;
+
+    }
+
+
+
+    /* =========================
+       입력
+    ========================= */
+
+
+    label:not(.tab-label) {
+
+      display:
+        block;
+
+      margin:
+        16px 0 7px;
+
+      font-size:
+        14px;
+
+      font-weight:
+        800;
+
+    }
+
+
+    input {
+
+      width:
+        100%;
+
+      padding:
+        13px 14px;
+
+      border:
+        1px solid #ddd;
+
+      border-radius:
+        12px;
+
+      background:
+        #fff;
+
+      color:
+        #222;
+
+      font-size:
+        16px;
+
+      outline:
+        none;
+
+    }
+
+
+    input:focus {
+
+      border-color:
+        var(--pink);
+
+    }
+
+
+
+    button {
+
+      width:
+        100%;
+
+      border:
+        0;
+
+      border-radius:
+        12px;
+
+      padding:
+        14px 16px;
+
+      font-size:
+        15px;
+
+      font-weight:
+        800;
+
+      cursor:
+        pointer;
+
+    }
+
+
+    button:active {
+
+      transform:
+        scale(.99);
+
+    }
+
+
+    .primary {
+
+      margin-top:
+        14px;
+
+      background:
+        var(--pink);
+
+      color:
+        #fff;
+
+    }
+
+
+    .ghost {
+
+      margin-top:
+        10px;
+
+      background:
+        #f5f5f5;
+
+      color:
+        #444;
+
+    }
+
+
+    .divider {
+
+      width:
+        100%;
+
+      height:
+        1px;
+
+      margin:
+        24px 0;
+
+      background:
+        var(--line);
+
+    }
+
+
+    .note {
+
+      margin-top:
+        8px;
+
+      color:
+        #999;
+
+      font-size:
+        12px;
+
+      line-height:
+        1.6;
+
+    }
+
+
+    .mini {
+
+      color:
+        #999;
+
+      font-size:
+        12px;
+
+    }
+
+
+    .hidden {
+
+      display:
+        none !important;
+
+    }
+
+
+
+    /* =========================
+       참가자 이름
+    ========================= */
+
+
+    .name-title {
+
+      margin-top:
+        18px;
+
+      margin-bottom:
+        8px;
+
+      font-size:
+        14px;
+
+      font-weight:
+        800;
+
+    }
+
+
+    .name-grid {
+
+      display:
+        grid;
+
+      grid-template-columns:
+        1fr;
+
+      gap:
+        8px;
+
+    }
+
+
+
+    /* =========================
+       결과
+    ========================= */
+
+
+    .result {
+
+      display:
+        none;
+
+      margin-top:
+        16px;
+
+      padding:
+        22px;
+
+      border-radius:
+        16px;
+
+      background:
+        var(--pink-light);
+
+      text-align:
+        center;
+
+    }
+
+
+    .result.show {
+
+      display:
+        block;
+
+    }
+
+
+    .result .big {
+
+      margin-top:
+        5px;
+
+      color:
+        #ff5f7c;
+
+      font-size:
+        29px;
+
+      font-weight:
+        900;
+
+    }
+
+
+
+    /* =========================
+       방 코드
+    ========================= */
+
+
+    .room-box {
+
+      display:
+        none;
+
+      margin-top:
+        18px;
+
+      padding:
+        18px;
+
+      border:
+        1px solid #eee;
+
+      border-radius:
+        16px;
+
+      background:
+        #fafafa;
+
+    }
+
+
+    .room-box.show {
+
+      display:
+        block;
+
+    }
+
+
+    .code {
+
+      margin:
+        8px 0 14px;
+
+      color:
+        #ff5f7c;
+
+      font-size:
+        30px;
+
+      font-weight:
+        900;
+
+      letter-spacing:
+        5px;
+
+      text-align:
+        center;
+
+    }
+
+
+
+    /* =========================
+       미션
+    ========================= */
+
+
+    .mission-heading {
+
+      margin-bottom:
+        5px;
+
+      font-size:
+        16px;
+
+      font-weight:
+        900;
+
+    }
+
+
+    .mission-list {
+
+      display:
+        grid;
+
+      gap:
+        8px;
+
+      margin-top:
+        12px;
+
+    }
+
+
+    .mission {
+
+      padding:
+        13px 14px;
+
+      border:
+        1px solid #eee;
+
+      border-radius:
+        12px;
+
+      background:
+        #fafafa;
+
+      font-size:
+        14px;
+
+      line-height:
+        1.6;
+
+    }
+
+
+    .mission b {
+
+      display:
+        block;
+
+      margin-bottom:
+        4px;
+
+      color:
+        #ff607d;
+
+    }
+
+
+
+    /* =========================
+       관리자
+    ========================= */
+
+
+    .pairs {
+
+      display:
+        grid;
+
+      gap:
+        8px;
+
+      margin-top:
+        16px;
+
+    }
+
+
+    .pair {
+
+      padding:
+        13px 14px;
+
+      border:
+        1px solid #eee;
+
+      border-radius:
+        12px;
+
+      background:
+        #fafafa;
+
+      font-size:
+        14px;
+
+    }
+
+
+
+    @media
+    (max-width: 480px) {
+
+      body {
+
+        padding:
+          0;
+
+      }
+
+
+      .wrap {
+
+        max-width:
+          100%;
+
+      }
+
+
+      .card {
+
+        min-height:
+          100vh;
+
+        border-radius:
+          0;
+
+        padding:
+          26px 20px 50px;
+
+        box-shadow:
+          none;
+
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+<div class="wrap">
+
+  <div class="card">
+
+
+    <h1>
+      🎁 마니또
+    </h1>
+
+
+    <div class="sub">
+
+      방을 만들고, 참가자는 방 코드와 이름으로<br>
+
+      자기 마니또만 확인할 수 있어요.
+
+    </div>
+
+
+
+    <!-- 탭 -->
+
+
+    <input
+      type="radio"
+      name="mainTab"
+      id="tabJoinRadio"
+      class="tab-radio"
+      checked
+    >
+
+
+    <input
+      type="radio"
+      name="mainTab"
+      id="tabCreateRadio"
+      class="tab-radio"
+    >
+
+
+    <input
+      type="radio"
+      name="mainTab"
+      id="tabAdminRadio"
+      class="tab-radio"
+    >
+
+
+
+    <div class="tabs">
+
+
+      <label
+        for="tabJoinRadio"
+        class="tab-label"
+      >
+
+        내 마니또
+
+      </label>
+
+
+      <label
+        for="tabCreateRadio"
+        class="tab-label"
+      >
+
+        방 만들기
+
+      </label>
+
+
+      <label
+        for="tabAdminRadio"
+        class="tab-label"
+      >
+
+        관리자
+
+      </label>
+
+
+    </div>
+
+
+
+    <!-- =========================
+         내 마니또
+    ========================== -->
+
+
+    <section
+      id="join"
+      class="view"
+    >
+
+
+      <label
+        for="joinCode"
+      >
+
+        방 코드
+
+      </label>
+
+
+      <input
+        id="joinCode"
+        maxlength="10"
+        placeholder="예: A7K9Q2"
+      >
+
+
+
+      <label
+        for="joinName"
+      >
+
+        내 이름
+
+      </label>
+
+
+      <input
+        id="joinName"
+        placeholder="이름을 입력하세요"
+      >
+
+
+
+      <button
+        type="button"
+        class="primary"
+        id="joinBtn"
+      >
+
+        내 마니또 확인하기
+
+      </button>
+
+
+
+      <div
+        id="joinResult"
+        class="result"
+      >
+
+
+        <div class="mini">
+
+          당신의 마니또는
+
+        </div>
+
+
+        <div
+          class="big"
+          id="targetName"
+        ></div>
+
+
+        <div
+          class="mini"
+          style="margin-top:8px;"
+        >
+
+          🤫 다른 사람에게는 비밀!
+
+        </div>
+
+
+      </div>
+
+
+
+      <div
+        id="missionArea"
+        class="hidden"
+      >
+
+
+        <div class="divider"></div>
+
+
+        <div
+          class="mission-heading"
+        >
+
+          💌 마니또 미션
+
+        </div>
+
+
+        <div
+          id="missionList"
+          class="mission-list"
+        ></div>
+
+
+      </div>
+
+
+    </section>
+
+
+
+    <!-- =========================
+         방 만들기
+    ========================== -->
+
+
+    <section
+      id="create"
+      class="view"
+    >
+
+
+      <label
+        for="count"
+      >
+
+        참여 인원
+
+      </label>
+
+
+      <input
+        id="count"
+        type="number"
+        min="2"
+        max="50"
+        value="10"
+      >
+
+
+
+      <div
+        class="name-title"
+      >
+
+        참가자 이름
+
+      </div>
+
+
+      <div
+        id="nameInputs"
+        class="name-grid"
+      ></div>
+
+
+
+      <label
+        for="adminPassword"
+      >
+
+        관리자 비밀번호
+
+      </label>
+
+
+      <input
+        id="adminPassword"
+        type="password"
+        placeholder="전체 결과 확인용"
+      >
+
+
+
+      <div class="divider"></div>
+
+
+
+      <div
+        class="mission-heading"
+      >
+
+        💌 미션 9개
+
+      </div>
+
+
+      <div
+        class="note"
+      >
+
+        아래 미션은 자유롭게 수정할 수 있어요.
+
+      </div>
+
+
+      <div
+        id="missionInputs"
+        class="name-grid"
+        style="margin-top:12px;"
+      ></div>
+
+
+
+      <button
+        type="button"
+        class="primary"
+        id="createBtn"
+      >
+
+        🎲 랜덤 배정하고 방 만들기
+
+      </button>
+
+
+      <div
+        class="note"
+      >
+
+        전체 참가자를 무작위로 섞은 뒤
+        한 방향으로 순환 배정합니다.<br>
+
+        자기 자신에게 배정되지 않으며,
+        3명 이상이면 서로 맞교환되는 배정도 생기지 않습니다.
+
+      </div>
+
+
+
+      <div
+        id="roomBox"
+        class="room-box"
+      >
+
+
+        <div
+          class="mini"
+          style="text-align:center;"
+        >
+
+          생성된 방 코드
+
+        </div>
+
+
+        <div
+          class="code"
+          id="roomCodeText"
+        ></div>
+
+
+        <button
+          type="button"
+          class="ghost"
+          id="copyCodeBtn"
+        >
+
+          방 코드 복사
+
+        </button>
+
+
+      </div>
+
+
+    </section>
+
+
+
+    <!-- =========================
+         관리자
+    ========================== -->
+
+
+    <section
+      id="admin"
+      class="view"
+    >
+
+
+      <label
+        for="adminCode"
+      >
+
+        방 코드
+
+      </label>
+
+
+      <input
+        id="adminCode"
+        placeholder="방 코드를 입력하세요"
+      >
+
+
+
+      <label
+        for="adminPwCheck"
+      >
+
+        관리자 비밀번호
+
+      </label>
+
+
+      <input
+        id="adminPwCheck"
+        type="password"
+        placeholder="방을 만들 때 설정한 비밀번호"
+      >
+
+
+
+      <button
+        type="button"
+        class="primary"
+        id="adminBtn"
+      >
+
+        전체 결과 확인
+
+      </button>
+
+
+
+      <div
+        id="adminResults"
+        class="pairs"
+      ></div>
+
+
+    </section>
+
+
+  </div>
+
+</div>
+
+
+
+<script>
+
+
+/* =========================================================
+   Supabase 설정
+
+   아래 두 값은
+   지금 사용 중인 값을 그대로 넣어주세요.
+========================================================= */
+
+
+const SUPABASE_URL =
+  "https://mygchajusxkdlrfkwzlm.supabase.co";
+
+
+const SUPABASE_ANON_KEY =
+  "sb_publishable_fH3oSG3Smwfmvg2fTJR2Zw_EqqWu3Jt";
+
+
+let supabaseClient =
+  null;
+
+
+
+function initSupabase() {
+
+
+  try {
+
+
+    if (
+      !window.supabase ||
+      !SUPABASE_URL ||
+      !SUPABASE_ANON_KEY ||
+      SUPABASE_ANON_KEY.includes(
+        "여기에"
+      )
+    ) {
+
+      console.error(
+        "Supabase 설정을 확인해주세요."
+      );
+
+      return;
+
+    }
+
+
+    supabaseClient =
+      window.supabase
+        .createClient(
+          SUPABASE_URL,
+          SUPABASE_ANON_KEY
+        );
+
+
+  }
+
+
+  catch (error) {
+
+
+    console.error(
+      "Supabase 초기화 실패:",
+      error
+    );
+
+
+  }
+
+
+}
+
+
+
+initSupabase();
+
+
+
+function checkSupabase() {
+
+
+  if (
+    !supabaseClient
+  ) {
+
+
+    alert(
+      "Supabase 연결에 문제가 있습니다."
+    );
+
+
+    return false;
+
+
+  }
+
+
+  return true;
+
+
+}
+
+
+
+/* =========================================================
+   기본 미션
+========================================================= */
+
+
+const defaultMissions = [
+
+
+  "몰래 칭찬 한마디 건네기",
+
+
+  "작은 간식 챙겨주기",
+
+
+  "응원 메시지 보내기",
+
+
+  "도움이 필요한 순간 한 번 도와주기",
+
+
+  "한 번 웃게 만들기",
+
+
+  "좋은 점 하나 발견해서 알려주기",
+
+
+  "부담 없는 작은 선물 주기",
+
+
+  "고마웠던 점 표현하기",
+
+
+  "마지막 진심 메시지 전하기"
+
+
+];
+
+
+
+/* =========================================================
+   참가자 이름 입력칸
+========================================================= */
+
+
+function makeNameInputs() {
+
+
+  const countInput =
+    document.getElementById(
+      "count"
+    );
+
+
+  const box =
+    document.getElementById(
+      "nameInputs"
+    );
+
+
+  const count =
+    Number(
+      countInput.value
+    );
+
+
+  if (
+    !Number.isInteger(
+      count
+    ) ||
+    count < 2 ||
+    count > 50
+  ) {
+
+
+    box.innerHTML =
+      "";
+
+
+    return;
+
+
+  }
+
+
+
+  const oldValues =
+    [
+      ...box.querySelectorAll(
+        ".person-name"
+      )
+    ]
+    .map(
+      input =>
+        input.value
+    );
+
+
+
+  box.innerHTML =
+    "";
+
+
+
+  for (
+    let i = 0;
+    i < count;
+    i++
+  ) {
+
+
+    const input =
+      document.createElement(
+        "input"
+      );
+
+
+    input.type =
+      "text";
+
+
+    input.className =
+      "person-name";
+
+
+    input.placeholder =
+      `참가자 ${i + 1} 이름`;
+
+
+    if (
+      oldValues[i]
+    ) {
+
+
+      input.value =
+        oldValues[i];
+
+
+    }
+
+
+    box.appendChild(
+      input
+    );
+
+
+  }
+
+
+}
+
+
+
+document
+  .getElementById(
+    "count"
+  )
+  .addEventListener(
+    "input",
+    makeNameInputs
+  );
+
+
+
+/* =========================================================
+   미션 입력칸
+========================================================= */
+
+
+function makeMissionInputs() {
+
+
+  const box =
+    document.getElementById(
+      "missionInputs"
+    );
+
+
+  box.innerHTML =
+    "";
+
+
+
+  defaultMissions
+    .forEach(
+      (mission, index) => {
+
+
+        const input =
+          document.createElement(
+            "input"
+          );
+
+
+        input.type =
+          "text";
+
+
+        input.className =
+          "mission-input";
+
+
+        input.placeholder =
+          `미션 ${index + 1}`;
+
+
+        input.value =
+          mission;
+
+
+        box.appendChild(
+          input
+        );
+
+
+      }
+    );
+
+
+}
+
+
+
+makeNameInputs();
+
+makeMissionInputs();
+
+
+
+/* =========================================================
+   Fisher-Yates 랜덤 셔플
+========================================================= */
+
+
+function shuffle(array) {
+
+
+  const result =
+    [...array];
+
+
+  for (
+    let i =
+      result.length - 1;
+
+    i > 0;
+
+    i--
+  ) {
+
+
+    const j =
+      Math.floor(
+        Math.random() *
+        (i + 1)
+      );
+
+
+    [
+      result[i],
+      result[j]
+    ] =
+    [
+      result[j],
+      result[i]
+    ];
+
+
+  }
+
+
+  return result;
+
+
+}
+
+
+
+/* =========================================================
+   마니또 배정
+
+   ★ 변경된 핵심 부분
+
+   전체 사람을 무작위로 섞은 다음
+
+   1번 → 2번
+   2번 → 3번
+   3번 → 4번
+   ...
+   마지막 → 1번
+
+   형태로 하나의 큰 원을 만듦.
+
+   예:
+   여진 → 민우
+   민우 → 도경
+   도경 → 하은
+   하은 → 신권
+   신권 → 여진
+
+   장점:
+   - 자기 자신 X
+   - 모든 사람 정확히 1명 담당
+   - 모든 사람 정확히 1명에게 선택됨
+   - 3명 이상이면 A↔B 구조 없음
+   - 홀수/짝수 관계없이 작동
+========================================================= */
+
+
+function makeAssignments(names) {
+
+
+  const shuffled =
+    shuffle(
+      names
+    );
+
+
+  const assignments =
+    [];
+
+
+  for (
+    let i = 0;
+    i < shuffled.length;
+    i++
+  ) {
+
+
+    const giver =
+      shuffled[i];
+
+
+    const receiver =
+      shuffled[
+        (i + 1) %
+        shuffled.length
+      ];
+
+
+    assignments.push({
+
+      giver:
+        giver,
+
+      receiver:
+        receiver
+
+    });
+
+
+  }
+
+
+  return assignments;
+
+
+}
+
+
+
+/* =========================================================
+   방 코드 생성
+========================================================= */
+
+
+function makeCode() {
+
+
+  const chars =
+    "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+
+
+  let result =
+    "";
+
+
+  for (
+    let i = 0;
+    i < 6;
+    i++
+  ) {
+
+
+    result +=
+      chars[
+        Math.floor(
+          Math.random() *
+          chars.length
+        )
+      ];
+
+
+  }
+
+
+  return result;
+
+
+}
+
+
+
+/* =========================================================
+   비밀번호 SHA256
+========================================================= */
+
+
+async function sha256(text) {
+
+
+  const data =
+    new TextEncoder()
+      .encode(
+        text
+      );
+
+
+  const hash =
+    await crypto.subtle.digest(
+      "SHA-256",
+      data
+    );
+
+
+  return [
+    ...new Uint8Array(
+      hash
+    )
+  ]
+
+  .map(
+    byte =>
+      byte
+        .toString(16)
+        .padStart(
+          2,
+          "0"
+        )
+  )
+
+  .join("");
+
+
+}
+
+
+
+/* =========================================================
+   방 생성
+========================================================= */
+
+
+document
+  .getElementById(
+    "createBtn"
+  )
+  .addEventListener(
+    "click",
+
+    async () => {
+
+
+      if (
+        !checkSupabase()
+      ) {
+
+        return;
+
+      }
+
+
+
+      const expected =
+        Number(
+          document
+            .getElementById(
+              "count"
+            )
+            .value
+        );
+
+
+
+      const names =
+        [
+          ...document
+            .querySelectorAll(
+              ".person-name"
+            )
+        ]
+
+        .map(
+          input =>
+            input
+              .value
+              .trim()
+        )
+
+        .filter(
+          Boolean
+        );
+
+
+
+      const password =
+        document
+          .getElementById(
+            "adminPassword"
+          )
+          .value;
+
+
+
+      const missions =
+        [
+          ...document
+            .querySelectorAll(
+              ".mission-input"
+            )
+        ]
+
+        .map(
+          input =>
+            input
+              .value
+              .trim()
+        )
+
+        .filter(
+          Boolean
+        );
+
+
+
+      if (
+        names.length !==
+        expected
+      ) {
+
+
+        alert(
+          `참가자 ${expected}명의 이름을 모두 입력해주세요.`
+        );
+
+
+        return;
+
+
+      }
+
+
+
+      if (
+        new Set(
+          names
+        ).size !==
+        names.length
+      ) {
+
+
+        alert(
+          "중복된 이름이 있습니다."
+        );
+
+
+        return;
+
+
+      }
+
+
+
+      if (
+        !password
+      ) {
+
+
+        alert(
+          "관리자 비밀번호를 입력해주세요."
+        );
+
+
+        return;
+
+
+      }
+
+
+
+      const assignments =
+        makeAssignments(
+          names
+        );
+
+
+
+      const passwordHash =
+        await sha256(
+          password
+        );
+
+
+
+      let code;
+
+
+      let error =
+        null;
+
+
+
+      for (
+        let attempt = 0;
+        attempt < 5;
+        attempt++
+      ) {
+
+
+        code =
+          makeCode();
+
+
+
+        const result =
+          await supabaseClient.rpc(
+
+            "create_manitto_room",
+
+            {
+
+
+              p_code:
+                code,
+
+
+              p_password_hash:
+                passwordHash,
+
+
+              p_assignments:
+                assignments,
+
+
+              p_missions:
+                missions.length
+                  ? missions
+                  : defaultMissions
+
+
+            }
+
+          );
+
+
+
+        error =
+          result.error;
+
+
+
+        if (
+          !error
+        ) {
+
+          break;
+
+        }
+
+
+
+        const message =
+          String(
+            error.message || ""
+          )
+          .toLowerCase();
+
+
+
+        if (
+          !message.includes(
+            "duplicate"
+          )
+        ) {
+
+          break;
+
+        }
+
+
+      }
+
+
+
+      if (
+        error
+      ) {
+
+
+        console.error(
+          error
+        );
+
+
+        alert(
+          "방 생성에 실패했습니다."
+        );
+
+
+        return;
+
+
+      }
+
+
+
+      document
+        .getElementById(
+          "roomCodeText"
+        )
+        .textContent =
+          code;
+
+
+
+      document
+        .getElementById(
+          "roomBox"
+        )
+        .classList
+        .add(
+          "show"
+        );
+
+
+
+      document
+        .getElementById(
+          "roomBox"
+        )
+        .scrollIntoView({
+
+          behavior:
+            "smooth",
+
+          block:
+            "center"
+
+        });
+
+
+    }
+
+  );
+
+
+
+/* =========================================================
+   방 코드 복사
+========================================================= */
+
+
+document
+  .getElementById(
+    "copyCodeBtn"
+  )
+  .addEventListener(
+    "click",
+
+    async () => {
+
+
+      const code =
+        document
+          .getElementById(
+            "roomCodeText"
+          )
+          .textContent;
+
+
+
+      if (
+        !code
+      ) {
+
+        return;
+
+      }
+
+
+
+      try {
+
+
+        await navigator
+          .clipboard
+          .writeText(
+            code
+          );
+
+
+        alert(
+          "방 코드를 복사했습니다."
+        );
+
+
+      }
+
+
+      catch {
+
+
+        alert(
+          `방 코드: ${code}`
+        );
+
+
+      }
+
+
+    }
+
+  );
+
+
+
+/* =========================================================
+   내 마니또 확인
+========================================================= */
+
+
+document
+  .getElementById(
+    "joinBtn"
+  )
+  .addEventListener(
+    "click",
+
+    async () => {
+
+
+      if (
+        !checkSupabase()
+      ) {
+
+        return;
+
+      }
+
+
+
+      const code =
+        document
+          .getElementById(
+            "joinCode"
+          )
+          .value
+          .trim()
+          .toUpperCase();
+
+
+
+      const name =
+        document
+          .getElementById(
+            "joinName"
+          )
+          .value
+          .trim();
+
+
+
+      if (
+        !code ||
+        !name
+      ) {
+
+
+        alert(
+          "방 코드와 이름을 모두 입력해주세요."
+        );
+
+
+        return;
+
+
+      }
+
+
+
+      const {
+        data,
+        error
+      } =
+
+        await supabaseClient.rpc(
+
+          "get_my_manitto",
+
+          {
+
+
+            p_code:
+              code,
+
+
+            p_name:
+              name
+
+
+          }
+
+        );
+
+
+
+      if (
+        error
+      ) {
+
+
+        console.error(
+          error
+        );
+
+
+        alert(
+          "마니또 확인 중 오류가 발생했습니다."
+        );
+
+
+        return;
+
+
+      }
+
+
+
+      if (
+        !data ||
+        data.length === 0
+      ) {
+
+
+        alert(
+          "방 코드 또는 이름이 맞지 않습니다."
+        );
+
+
+        return;
+
+
+      }
+
+
+
+      document
+        .getElementById(
+          "targetName"
+        )
+        .textContent =
+          data[0].receiver;
+
+
+
+      document
+        .getElementById(
+          "joinResult"
+        )
+        .classList
+        .add(
+          "show"
+        );
+
+
+
+      const missionResult =
+        await supabaseClient.rpc(
+
+          "get_room_missions",
+
+          {
+
+            p_code:
+              code
+
+          }
+
+        );
+
+
+
+      const missionArea =
+        document
+          .getElementById(
+            "missionArea"
+          );
+
+
+      const missionList =
+        document
+          .getElementById(
+            "missionList"
+          );
+
+
+
+      missionList.innerHTML =
+        "";
+
+
+
+      if (
+        !missionResult.error &&
+        missionResult.data &&
+        missionResult.data.length
+      ) {
+
+
+        missionResult
+          .data
+          .forEach(
+            (
+              mission,
+              index
+            ) => {
+
+
+              const div =
+                document.createElement(
+                  "div"
+                );
+
+
+              div.className =
+                "mission";
+
+
+              div.innerHTML = `
+
+                <b>
+                  미션 ${String(index + 1).padStart(2, "0")}
+                </b>
+
+                <span>
+                  ${escapeHtml(
+                    mission.mission_text
+                  )}
+                </span>
+
+              `;
+
+
+              missionList
+                .appendChild(
+                  div
+                );
+
+
+            }
+          );
+
+
+
+        missionArea
+          .classList
+          .remove(
+            "hidden"
+          );
+
+
+      }
+
+
+    }
+
+  );
+
+
+
+/* =========================================================
+   관리자 결과
+========================================================= */
+
+
+document
+  .getElementById(
+    "adminBtn"
+  )
+  .addEventListener(
+    "click",
+
+    async () => {
+
+
+      if (
+        !checkSupabase()
+      ) {
+
+        return;
+
+      }
+
+
+
+      const code =
+        document
+          .getElementById(
+            "adminCode"
+          )
+          .value
+          .trim()
+          .toUpperCase();
+
+
+
+      const password =
+        document
+          .getElementById(
+            "adminPwCheck"
+          )
+          .value;
+
+
+
+      if (
+        !code ||
+        !password
+      ) {
+
+
+        alert(
+          "방 코드와 비밀번호를 모두 입력해주세요."
+        );
+
+
+        return;
+
+
+      }
+
+
+
+      const passwordHash =
+        await sha256(
+          password
+        );
+
+
+
+      const {
+        data,
+        error
+      } =
+
+        await supabaseClient.rpc(
+
+          "admin_get_assignments",
+
+          {
+
+
+            p_code:
+              code,
+
+
+            p_password_hash:
+              passwordHash
+
+
+          }
+
+        );
+
+
+
+      const box =
+        document
+          .getElementById(
+            "adminResults"
+          );
+
+
+
+      box.innerHTML =
+        "";
+
+
+
+      if (
+        error
+      ) {
+
+
+        console.error(
+          error
+        );
+
+
+        alert(
+          "전체 결과 조회 중 오류가 발생했습니다."
+        );
+
+
+        return;
+
+
+      }
+
+
+
+      if (
+        !data ||
+        data.length === 0
+      ) {
+
+
+        alert(
+          "방 코드 또는 관리자 비밀번호가 틀렸습니다."
+        );
+
+
+        return;
+
+
+      }
+
+
+
+      data
+        .forEach(
+          person => {
+
+
+            const div =
+              document.createElement(
+                "div"
+              );
+
+
+            div.className =
+              "pair";
+
+
+            div.textContent =
+              `${person.giver} → ${person.receiver}`;
+
+
+            box.appendChild(
+              div
+            );
+
+
+          }
+        );
+
+
+    }
+
+  );
+
+
+
+/* =========================================================
+   HTML 안전 처리
+========================================================= */
+
+
+function escapeHtml(value) {
+
+
+  return String(
+    value
+  )
+  .replace(
+
+    /[&<>'"]/g,
+
+    char => ({
+
+      "&":
+        "&amp;",
+
+      "<":
+        "&lt;",
+
+      ">":
+        "&gt;",
+
+      "'":
+        "&#39;",
+
+      '"':
+        "&quot;"
+
+    })[char]
+
+  );
+
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>
