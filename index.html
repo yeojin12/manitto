@@ -1,31 +1,41 @@
 <!doctype html>
+
 <html lang="ko">
 
 <head>
+
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  />
 
   <title>마니또</title>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+  ></script>
+
 
   <style>
 
     :root {
 
-      --bg: #fff8f8;
+      --bg:#fff8f8;
 
-      --card: #ffffff;
+      --card:#fff;
 
-      --text: #222222;
+      --text:#222;
 
-      --muted: #888888;
+      --muted:#888;
 
-      --line: #eeeeee;
+      --line:#eee;
 
-      --pink: #ff7893;
+      --pink:#ff7893;
 
-      --pink-light: #fff0f3;
+      --pink-light:#fff0f3;
 
       --shadow:
         0 14px 40px
@@ -44,7 +54,8 @@
 
     body {
 
-      margin: 0;
+      margin:
+        0;
 
       min-height:
         100vh;
@@ -134,9 +145,9 @@
 
 
 
-    /* =========================
+    /* ======================
        탭
-    ========================= */
+    ====================== */
 
 
     .tab-radio {
@@ -153,7 +164,7 @@
         grid;
 
       grid-template-columns:
-        repeat(3, 1fr);
+        repeat(3,1fr);
 
       gap:
         8px;
@@ -256,9 +267,9 @@
 
 
 
-    /* =========================
-       입력
-    ========================= */
+    /* ======================
+       공통
+    ====================== */
 
 
     label:not(.tab-label) {
@@ -315,7 +326,6 @@
     }
 
 
-
     button {
 
       width:
@@ -359,7 +369,7 @@
         var(--pink);
 
       color:
-        #fff;
+        white;
 
     }
 
@@ -432,9 +442,9 @@
 
 
 
-    /* =========================
+    /* ======================
        참가자 이름
-    ========================= */
+    ====================== */
 
 
     .name-title {
@@ -459,9 +469,6 @@
       display:
         grid;
 
-      grid-template-columns:
-        1fr;
-
       gap:
         8px;
 
@@ -469,9 +476,9 @@
 
 
 
-    /* =========================
-       결과
-    ========================= */
+    /* ======================
+       마니또 결과
+    ====================== */
 
 
     .result {
@@ -523,9 +530,9 @@
 
 
 
-    /* =========================
+    /* ======================
        방 코드
-    ========================= */
+    ====================== */
 
 
     .room-box {
@@ -583,21 +590,103 @@
 
 
 
-    /* =========================
-       미션
-    ========================= */
+    /* ======================
+       미션 진행률
+    ====================== */
 
 
-    .mission-heading {
+    .mission-area {
+
+      margin-top:
+        24px;
+
+    }
+
+
+    .mission-top {
+
+      display:
+        flex;
+
+      justify-content:
+        space-between;
+
+      align-items:
+        center;
+
+      gap:
+        12px;
 
       margin-bottom:
-        5px;
+        12px;
+
+    }
+
+
+    .mission-title {
 
       font-size:
-        16px;
+        17px;
 
       font-weight:
         900;
+
+    }
+
+
+    .mission-count {
+
+      color:
+        #ff607d;
+
+      font-size:
+        13px;
+
+      font-weight:
+        800;
+
+    }
+
+
+    .progress-track {
+
+      width:
+        100%;
+
+      height:
+        8px;
+
+      margin-bottom:
+        16px;
+
+      overflow:
+        hidden;
+
+      border-radius:
+        999px;
+
+      background:
+        #f1f1f1;
+
+    }
+
+
+    .progress-bar {
+
+      width:
+        0%;
+
+      height:
+        100%;
+
+      border-radius:
+        999px;
+
+      background:
+        var(--pink);
+
+      transition:
+        width .25s ease;
 
     }
 
@@ -608,55 +697,129 @@
         grid;
 
       gap:
-        8px;
-
-      margin-top:
-        12px;
+        9px;
 
     }
 
 
     .mission {
 
+      display:
+        flex;
+
+      align-items:
+        flex-start;
+
+      gap:
+        12px;
+
       padding:
-        13px 14px;
+        14px;
 
       border:
         1px solid #eee;
 
       border-radius:
-        12px;
+        14px;
 
       background:
         #fafafa;
+
+      transition:
+        .15s;
+
+    }
+
+
+    .mission.completed {
+
+      border-color:
+        #ffd7df;
+
+      background:
+        #fff4f6;
+
+    }
+
+
+    .mission-checkbox {
+
+      width:
+        21px;
+
+      height:
+        21px;
+
+      flex:
+        0 0 auto;
+
+      margin:
+        1px 0 0;
+
+      accent-color:
+        var(--pink);
+
+      cursor:
+        pointer;
+
+    }
+
+
+    .mission-text {
+
+      flex:
+        1;
 
       font-size:
         14px;
 
       line-height:
-        1.6;
+        1.55;
 
     }
 
 
-    .mission b {
+    .mission-number {
 
       display:
         block;
 
       margin-bottom:
-        4px;
+        3px;
 
       color:
         #ff607d;
+
+      font-size:
+        12px;
+
+      font-weight:
+        900;
+
+    }
+
+
+    .mission-done {
+
+      margin-top:
+        3px;
+
+      color:
+        #ff607d;
+
+      font-size:
+        12px;
+
+      font-weight:
+        700;
 
     }
 
 
 
-    /* =========================
+    /* ======================
        관리자
-    ========================= */
+    ====================== */
 
 
     .pairs {
@@ -694,8 +857,7 @@
 
 
 
-    @media
-    (max-width: 480px) {
+    @media(max-width:480px) {
 
       body {
 
@@ -753,13 +915,10 @@
 
       방을 만들고, 참가자는 방 코드와 이름으로<br>
 
-      자기 마니또만 확인할 수 있어요.
+      자기 마니또와 미션 진행상태를 확인할 수 있어요.
 
     </div>
 
-
-
-    <!-- 탭 -->
 
 
     <input
@@ -836,9 +995,7 @@
     >
 
 
-      <label
-        for="joinCode"
-      >
+      <label for="joinCode">
 
         방 코드
 
@@ -853,9 +1010,7 @@
 
 
 
-      <label
-        for="joinName"
-      >
+      <label for="joinName">
 
         내 이름
 
@@ -914,22 +1069,51 @@
 
 
 
+      <!-- 미션 진행상태 -->
+
+
       <div
         id="missionArea"
-        class="hidden"
+        class="mission-area hidden"
       >
 
 
         <div class="divider"></div>
 
 
-        <div
-          class="mission-heading"
-        >
+        <div class="mission-top">
 
-          💌 마니또 미션
+
+          <div class="mission-title">
+
+            💌 미션 진행상태
+
+          </div>
+
+
+          <div
+            class="mission-count"
+            id="missionCount"
+          >
+
+            0 / 9 완료
+
+          </div>
+
 
         </div>
+
+
+
+        <div class="progress-track">
+
+          <div
+            class="progress-bar"
+            id="progressBar"
+          ></div>
+
+        </div>
+
 
 
         <div
@@ -956,9 +1140,7 @@
     >
 
 
-      <label
-        for="count"
-      >
+      <label for="count">
 
         참여 인원
 
@@ -975,9 +1157,7 @@
 
 
 
-      <div
-        class="name-title"
-      >
+      <div class="name-title">
 
         참가자 이름
 
@@ -991,9 +1171,7 @@
 
 
 
-      <label
-        for="adminPassword"
-      >
+      <label for="adminPassword">
 
         관리자 비밀번호
 
@@ -1012,20 +1190,16 @@
 
 
 
-      <div
-        class="mission-heading"
-      >
+      <div class="mission-title">
 
         💌 미션 9개
 
       </div>
 
 
-      <div
-        class="note"
-      >
+      <div class="note">
 
-        아래 미션은 자유롭게 수정할 수 있어요.
+        미션 내용은 방 생성 전에 자유롭게 수정할 수 있어요.
 
       </div>
 
@@ -1049,15 +1223,9 @@
       </button>
 
 
-      <div
-        class="note"
-      >
+      <div class="note">
 
-        전체 참가자를 무작위로 섞은 뒤
-        한 방향으로 순환 배정합니다.<br>
-
-        자기 자신에게 배정되지 않으며,
-        3명 이상이면 서로 맞교환되는 배정도 생기지 않습니다.
+        참가자 전체를 랜덤하게 섞은 뒤 하나의 순환 구조로 배정합니다.
 
       </div>
 
@@ -1114,9 +1282,7 @@
     >
 
 
-      <label
-        for="adminCode"
-      >
+      <label for="adminCode">
 
         방 코드
 
@@ -1130,9 +1296,7 @@
 
 
 
-      <label
-        for="adminPwCheck"
-      >
+      <label for="adminPwCheck">
 
         관리자 비밀번호
 
@@ -1178,15 +1342,13 @@
 
 
 /* =========================================================
-   Supabase 설정
-
-   아래 두 값은
-   지금 사용 중인 값을 그대로 넣어주세요.
+   Supabase
 ========================================================= */
 
 
 const SUPABASE_URL =
   "https://mygchajusxkdlrfkwzlm.supabase.co";
+
 
 
 const SUPABASE_ANON_KEY =
@@ -1198,82 +1360,46 @@ let supabaseClient =
 
 
 
-function initSupabase() {
+try {
 
+  supabaseClient =
+    window.supabase
+      .createClient(
 
-  try {
+        SUPABASE_URL,
 
+        SUPABASE_ANON_KEY
 
-    if (
-      !window.supabase ||
-      !SUPABASE_URL ||
-      !SUPABASE_ANON_KEY ||
-      SUPABASE_ANON_KEY.includes(
-        "여기에"
-      )
-    ) {
-
-      console.error(
-        "Supabase 설정을 확인해주세요."
       );
 
-      return;
+}
 
-    }
+catch(error) {
 
-
-    supabaseClient =
-      window.supabase
-        .createClient(
-          SUPABASE_URL,
-          SUPABASE_ANON_KEY
-        );
-
-
-  }
-
-
-  catch (error) {
-
-
-    console.error(
-      "Supabase 초기화 실패:",
-      error
-    );
-
-
-  }
-
+  console.error(
+    error
+  );
 
 }
 
 
 
-initSupabase();
-
-
-
 function checkSupabase() {
 
-
-  if (
+  if(
     !supabaseClient
   ) {
-
 
     alert(
       "Supabase 연결에 문제가 있습니다."
     );
 
-
     return false;
-
 
   }
 
 
   return true;
-
 
 }
 
@@ -1286,82 +1412,49 @@ function checkSupabase() {
 
 const defaultMissions = [
 
-
   "몰래 칭찬 한마디 건네기",
-
 
   "작은 간식 챙겨주기",
 
-
   "응원 메시지 보내기",
-
 
   "도움이 필요한 순간 한 번 도와주기",
 
-
   "한 번 웃게 만들기",
-
 
   "좋은 점 하나 발견해서 알려주기",
 
-
   "부담 없는 작은 선물 주기",
-
 
   "고마웠던 점 표현하기",
 
-
   "마지막 진심 메시지 전하기"
-
 
 ];
 
 
 
 /* =========================================================
-   참가자 이름 입력칸
+   이름 입력칸
 ========================================================= */
 
 
 function makeNameInputs() {
 
 
-  const countInput =
-    document.getElementById(
-      "count"
+  const count =
+    Number(
+      document
+        .getElementById("count")
+        .value
     );
 
 
   const box =
-    document.getElementById(
-      "nameInputs"
-    );
-
-
-  const count =
-    Number(
-      countInput.value
-    );
-
-
-  if (
-    !Number.isInteger(
-      count
-    ) ||
-    count < 2 ||
-    count > 50
-  ) {
-
-
-    box.innerHTML =
-      "";
-
-
-    return;
-
-
-  }
-
+    document
+      .getElementById(
+        "nameInputs"
+      );
 
 
   const oldValues =
@@ -1371,18 +1464,26 @@ function makeNameInputs() {
       )
     ]
     .map(
-      input =>
-        input.value
+      x => x.value
     );
-
 
 
   box.innerHTML =
     "";
 
 
+  if(
+    count < 2 ||
+    count > 50
+  ) {
 
-  for (
+    return;
+
+  }
+
+
+
+  for(
     let i = 0;
     i < count;
     i++
@@ -1407,14 +1508,12 @@ function makeNameInputs() {
       `참가자 ${i + 1} 이름`;
 
 
-    if (
+    if(
       oldValues[i]
     ) {
 
-
       input.value =
         oldValues[i];
-
 
     }
 
@@ -1423,9 +1522,7 @@ function makeNameInputs() {
       input
     );
 
-
   }
-
 
 }
 
@@ -1451,19 +1548,22 @@ function makeMissionInputs() {
 
 
   const box =
-    document.getElementById(
-      "missionInputs"
-    );
+    document
+      .getElementById(
+        "missionInputs"
+      );
 
 
   box.innerHTML =
     "";
 
 
-
   defaultMissions
     .forEach(
-      (mission, index) => {
+      (
+        mission,
+        index
+      ) => {
 
 
         const input =
@@ -1496,7 +1596,6 @@ function makeMissionInputs() {
       }
     );
 
-
 }
 
 
@@ -1508,7 +1607,7 @@ makeMissionInputs();
 
 
 /* =========================================================
-   Fisher-Yates 랜덤 셔플
+   랜덤
 ========================================================= */
 
 
@@ -1519,7 +1618,7 @@ function shuffle(array) {
     [...array];
 
 
-  for (
+  for(
     let i =
       result.length - 1;
 
@@ -1545,45 +1644,17 @@ function shuffle(array) {
       result[i]
     ];
 
-
   }
 
 
   return result;
-
 
 }
 
 
 
 /* =========================================================
-   마니또 배정
-
-   ★ 변경된 핵심 부분
-
-   전체 사람을 무작위로 섞은 다음
-
-   1번 → 2번
-   2번 → 3번
-   3번 → 4번
-   ...
-   마지막 → 1번
-
-   형태로 하나의 큰 원을 만듦.
-
-   예:
-   여진 → 민우
-   민우 → 도경
-   도경 → 하은
-   하은 → 신권
-   신권 → 여진
-
-   장점:
-   - 자기 자신 X
-   - 모든 사람 정확히 1명 담당
-   - 모든 사람 정확히 1명에게 선택됨
-   - 3명 이상이면 A↔B 구조 없음
-   - 홀수/짝수 관계없이 작동
+   전체 순환 마니또
 ========================================================= */
 
 
@@ -1596,51 +1667,31 @@ function makeAssignments(names) {
     );
 
 
-  const assignments =
-    [];
+  return shuffled.map(
+    (
+      giver,
+      index
+    ) => ({
 
-
-  for (
-    let i = 0;
-    i < shuffled.length;
-    i++
-  ) {
-
-
-    const giver =
-      shuffled[i];
-
-
-    const receiver =
-      shuffled[
-        (i + 1) %
-        shuffled.length
-      ];
-
-
-    assignments.push({
-
-      giver:
-        giver,
+      giver,
 
       receiver:
-        receiver
 
-    });
+        shuffled[
+          (index + 1)
+          %
+          shuffled.length
+        ]
 
-
-  }
-
-
-  return assignments;
-
+    })
+  );
 
 }
 
 
 
 /* =========================================================
-   방 코드 생성
+   방 코드
 ========================================================= */
 
 
@@ -1655,7 +1706,7 @@ function makeCode() {
     "";
 
 
-  for (
+  for(
     let i = 0;
     i < 6;
     i++
@@ -1665,24 +1716,23 @@ function makeCode() {
     result +=
       chars[
         Math.floor(
-          Math.random() *
+          Math.random()
+          *
           chars.length
         )
       ];
-
 
   }
 
 
   return result;
 
-
 }
 
 
 
 /* =========================================================
-   비밀번호 SHA256
+   SHA256
 ========================================================= */
 
 
@@ -1697,10 +1747,11 @@ async function sha256(text) {
 
 
   const hash =
-    await crypto.subtle.digest(
-      "SHA-256",
-      data
-    );
+    await crypto.subtle
+      .digest(
+        "SHA-256",
+        data
+      );
 
 
   return [
@@ -1708,19 +1759,16 @@ async function sha256(text) {
       hash
     )
   ]
-
   .map(
-    byte =>
-      byte
+    x =>
+      x
         .toString(16)
         .padStart(
           2,
           "0"
         )
   )
-
   .join("");
-
 
 }
 
@@ -1741,14 +1789,13 @@ document
     async () => {
 
 
-      if (
+      if(
         !checkSupabase()
       ) {
 
         return;
 
       }
-
 
 
       const expected =
@@ -1761,7 +1808,6 @@ document
         );
 
 
-
       const names =
         [
           ...document
@@ -1769,18 +1815,15 @@ document
               ".person-name"
             )
         ]
-
         .map(
-          input =>
-            input
+          x =>
+            x
               .value
               .trim()
         )
-
         .filter(
           Boolean
         );
-
 
 
       const password =
@@ -1791,7 +1834,6 @@ document
           .value;
 
 
-
       const missions =
         [
           ...document
@@ -1799,73 +1841,56 @@ document
               ".mission-input"
             )
         ]
-
         .map(
-          input =>
-            input
+          x =>
+            x
               .value
               .trim()
         )
-
         .filter(
           Boolean
         );
 
 
-
-      if (
+      if(
         names.length !==
         expected
       ) {
-
 
         alert(
           `참가자 ${expected}명의 이름을 모두 입력해주세요.`
         );
 
-
         return;
-
 
       }
 
 
-
-      if (
-        new Set(
-          names
-        ).size !==
+      if(
+        new Set(names).size !==
         names.length
       ) {
-
 
         alert(
           "중복된 이름이 있습니다."
         );
 
-
         return;
-
 
       }
 
 
-
-      if (
+      if(
         !password
       ) {
-
 
         alert(
           "관리자 비밀번호를 입력해주세요."
         );
 
-
         return;
 
-
       }
-
 
 
       const assignments =
@@ -1874,23 +1899,18 @@ document
         );
 
 
-
       const passwordHash =
         await sha256(
           password
         );
 
 
-
       let code;
 
-
-      let error =
-        null;
+      let error;
 
 
-
-      for (
+      for(
         let attempt = 0;
         attempt < 5;
         attempt++
@@ -1901,7 +1921,6 @@ document
           makeCode();
 
 
-
         const result =
           await supabaseClient.rpc(
 
@@ -1909,37 +1928,28 @@ document
 
             {
 
-
               p_code:
                 code,
-
 
               p_password_hash:
                 passwordHash,
 
-
               p_assignments:
                 assignments,
 
-
               p_missions:
-                missions.length
-                  ? missions
-                  : defaultMissions
-
+                missions
 
             }
 
           );
 
 
-
         error =
           result.error;
 
 
-
-        if (
+        if(
           !error
         ) {
 
@@ -1948,17 +1958,12 @@ document
         }
 
 
-
-        const message =
-          String(
+        if(
+          !String(
             error.message || ""
           )
-          .toLowerCase();
-
-
-
-        if (
-          !message.includes(
+          .toLowerCase()
+          .includes(
             "duplicate"
           )
         ) {
@@ -1967,31 +1972,24 @@ document
 
         }
 
-
       }
 
 
-
-      if (
+      if(
         error
       ) {
-
 
         console.error(
           error
         );
 
-
         alert(
           "방 생성에 실패했습니다."
         );
 
-
         return;
 
-
       }
-
 
 
       document
@@ -2002,7 +2000,6 @@ document
           code;
 
 
-
       document
         .getElementById(
           "roomBox"
@@ -2011,22 +2008,6 @@ document
         .add(
           "show"
         );
-
-
-
-      document
-        .getElementById(
-          "roomBox"
-        )
-        .scrollIntoView({
-
-          behavior:
-            "smooth",
-
-          block:
-            "center"
-
-        });
 
 
     }
@@ -2058,19 +2039,7 @@ document
           .textContent;
 
 
-
-      if (
-        !code
-      ) {
-
-        return;
-
-      }
-
-
-
       try {
-
 
         await navigator
           .clipboard
@@ -2083,17 +2052,13 @@ document
           "방 코드를 복사했습니다."
         );
 
-
       }
 
-
       catch {
-
 
         alert(
           `방 코드: ${code}`
         );
-
 
       }
 
@@ -2105,7 +2070,7 @@ document
 
 
 /* =========================================================
-   내 마니또 확인
+   내 마니또 + 미션 진행상태
 ========================================================= */
 
 
@@ -2119,14 +2084,13 @@ document
     async () => {
 
 
-      if (
+      if(
         !checkSupabase()
       ) {
 
         return;
 
       }
-
 
 
       const code =
@@ -2139,7 +2103,6 @@ document
           .toUpperCase();
 
 
-
       const name =
         document
           .getElementById(
@@ -2149,44 +2112,33 @@ document
           .trim();
 
 
-
-      if (
+      if(
         !code ||
         !name
       ) {
 
-
         alert(
-          "방 코드와 이름을 모두 입력해주세요."
+          "방 코드와 이름을 입력해주세요."
         );
 
-
         return;
-
 
       }
 
 
 
-      const {
-        data,
-        error
-      } =
-
+      const manittoResult =
         await supabaseClient.rpc(
 
           "get_my_manitto",
 
           {
 
-
             p_code:
               code,
 
-
             p_name:
               name
-
 
           }
 
@@ -2194,41 +2146,34 @@ document
 
 
 
-      if (
-        error
+      if(
+        manittoResult.error
       ) {
 
-
         console.error(
-          error
+          manittoResult.error
         );
-
 
         alert(
-          "마니또 확인 중 오류가 발생했습니다."
+          "조회 중 오류가 발생했습니다."
         );
 
-
         return;
-
 
       }
 
 
 
-      if (
-        !data ||
-        data.length === 0
+      if(
+        !manittoResult.data ||
+        manittoResult.data.length === 0
       ) {
-
 
         alert(
           "방 코드 또는 이름이 맞지 않습니다."
         );
 
-
         return;
-
 
       }
 
@@ -2239,7 +2184,9 @@ document
           "targetName"
         )
         .textContent =
-          data[0].receiver;
+          manittoResult
+            .data[0]
+            .receiver;
 
 
 
@@ -2254,102 +2201,10 @@ document
 
 
 
-      const missionResult =
-        await supabaseClient.rpc(
-
-          "get_room_missions",
-
-          {
-
-            p_code:
-              code
-
-          }
-
-        );
-
-
-
-      const missionArea =
-        document
-          .getElementById(
-            "missionArea"
-          );
-
-
-      const missionList =
-        document
-          .getElementById(
-            "missionList"
-          );
-
-
-
-      missionList.innerHTML =
-        "";
-
-
-
-      if (
-        !missionResult.error &&
-        missionResult.data &&
-        missionResult.data.length
-      ) {
-
-
-        missionResult
-          .data
-          .forEach(
-            (
-              mission,
-              index
-            ) => {
-
-
-              const div =
-                document.createElement(
-                  "div"
-                );
-
-
-              div.className =
-                "mission";
-
-
-              div.innerHTML = `
-
-                <b>
-                  미션 ${String(index + 1).padStart(2, "0")}
-                </b>
-
-                <span>
-                  ${escapeHtml(
-                    mission.mission_text
-                  )}
-                </span>
-
-              `;
-
-
-              missionList
-                .appendChild(
-                  div
-                );
-
-
-            }
-          );
-
-
-
-        missionArea
-          .classList
-          .remove(
-            "hidden"
-          );
-
-
-      }
+      await loadMissionProgress(
+        code,
+        name
+      );
 
 
     }
@@ -2359,7 +2214,331 @@ document
 
 
 /* =========================================================
-   관리자 결과
+   미션 진행상태 불러오기
+========================================================= */
+
+
+async function loadMissionProgress(
+  code,
+  name
+) {
+
+
+  const result =
+    await supabaseClient.rpc(
+
+      "get_participant_missions",
+
+      {
+
+        p_code:
+          code,
+
+        p_name:
+          name
+
+      }
+
+    );
+
+
+  if(
+    result.error
+  ) {
+
+    console.error(
+      result.error
+    );
+
+    alert(
+      "미션 진행상태를 불러오지 못했습니다."
+    );
+
+    return;
+
+  }
+
+
+  const missions =
+    result.data || [];
+
+
+  const list =
+    document
+      .getElementById(
+        "missionList"
+      );
+
+
+  list.innerHTML =
+    "";
+
+
+
+  missions.forEach(
+    mission => {
+
+
+      const item =
+        document.createElement(
+          "div"
+        );
+
+
+      item.className =
+        "mission";
+
+
+      if(
+        mission.completed
+      ) {
+
+        item.classList.add(
+          "completed"
+        );
+
+      }
+
+
+
+      const checkbox =
+        document.createElement(
+          "input"
+        );
+
+
+      checkbox.type =
+        "checkbox";
+
+
+      checkbox.className =
+        "mission-checkbox";
+
+
+      checkbox.checked =
+        mission.completed;
+
+
+
+      const text =
+        document.createElement(
+          "div"
+        );
+
+
+      text.className =
+        "mission-text";
+
+
+      text.innerHTML = `
+
+        <span class="mission-number">
+          미션 ${String(
+            mission.sort_order
+          ).padStart(
+            2,
+            "0"
+          )}
+        </span>
+
+        <div>
+          ${escapeHtml(
+            mission.mission_text
+          )}
+        </div>
+
+        <div
+          class="mission-done"
+          style="${
+            mission.completed
+              ? ""
+              : "display:none;"
+          }"
+        >
+          ✓ 완료
+        </div>
+
+      `;
+
+
+
+      checkbox
+        .addEventListener(
+          "change",
+
+          async () => {
+
+
+            checkbox.disabled =
+              true;
+
+
+            const saveResult =
+              await supabaseClient.rpc(
+
+                "set_mission_progress",
+
+                {
+
+                  p_code:
+                    code,
+
+                  p_name:
+                    name,
+
+                  p_mission_id:
+                    mission.mission_id,
+
+                  p_completed:
+                    checkbox.checked
+
+                }
+
+              );
+
+
+            checkbox.disabled =
+              false;
+
+
+
+            if(
+              saveResult.error ||
+              saveResult.data !== true
+            ) {
+
+
+              console.error(
+                saveResult.error
+              );
+
+
+              checkbox.checked =
+                !checkbox.checked;
+
+
+              alert(
+                "미션 상태 저장에 실패했습니다."
+              );
+
+
+              return;
+
+            }
+
+
+
+            await loadMissionProgress(
+              code,
+              name
+            );
+
+
+          }
+
+        );
+
+
+
+      item.appendChild(
+        checkbox
+      );
+
+
+      item.appendChild(
+        text
+      );
+
+
+      list.appendChild(
+        item
+      );
+
+
+    }
+  );
+
+
+
+  updateProgress(
+    missions
+  );
+
+
+
+  document
+    .getElementById(
+      "missionArea"
+    )
+    .classList
+    .remove(
+      "hidden"
+    );
+
+
+}
+
+
+
+/* =========================================================
+   진행률 계산
+========================================================= */
+
+
+function updateProgress(
+  missions
+) {
+
+
+  const total =
+    missions.length;
+
+
+  const completed =
+    missions.filter(
+      x =>
+        x.completed
+    )
+    .length;
+
+
+  document
+    .getElementById(
+      "missionCount"
+    )
+    .textContent =
+      `${completed} / ${total} 완료`;
+
+
+
+  const percent =
+
+    total === 0
+
+      ? 0
+
+      : (
+          completed /
+          total
+        ) * 100;
+
+
+
+  document
+    .getElementById(
+      "progressBar"
+    )
+    .style
+    .width =
+      `${percent}%`;
+
+
+}
+
+
+
+/* =========================================================
+   관리자
 ========================================================= */
 
 
@@ -2373,14 +2552,13 @@ document
     async () => {
 
 
-      if (
+      if(
         !checkSupabase()
       ) {
 
         return;
 
       }
-
 
 
       const code =
@@ -2393,7 +2571,6 @@ document
           .toUpperCase();
 
 
-
       const password =
         document
           .getElementById(
@@ -2402,56 +2579,42 @@ document
           .value;
 
 
-
-      if (
+      if(
         !code ||
         !password
       ) {
 
-
         alert(
-          "방 코드와 비밀번호를 모두 입력해주세요."
+          "방 코드와 비밀번호를 입력해주세요."
         );
 
-
         return;
-
 
       }
 
 
-
-      const passwordHash =
+      const hash =
         await sha256(
           password
         );
 
 
-
-      const {
-        data,
-        error
-      } =
-
+      const result =
         await supabaseClient.rpc(
 
           "admin_get_assignments",
 
           {
 
-
             p_code:
               code,
 
-
             p_password_hash:
-              passwordHash
-
+              hash
 
           }
 
         );
-
 
 
       const box =
@@ -2461,53 +2624,43 @@ document
           );
 
 
-
       box.innerHTML =
         "";
 
 
-
-      if (
-        error
+      if(
+        result.error
       ) {
 
-
         console.error(
-          error
+          result.error
         );
-
 
         alert(
-          "전체 결과 조회 중 오류가 발생했습니다."
+          "조회 중 오류가 발생했습니다."
         );
 
-
         return;
-
 
       }
 
 
-
-      if (
-        !data ||
-        data.length === 0
+      if(
+        !result.data ||
+        result.data.length === 0
       ) {
-
 
         alert(
           "방 코드 또는 관리자 비밀번호가 틀렸습니다."
         );
 
-
         return;
-
 
       }
 
 
 
-      data
+      result.data
         .forEach(
           person => {
 
@@ -2542,7 +2695,7 @@ document
 
 
 /* =========================================================
-   HTML 안전 처리
+   HTML 안전처리
 ========================================================= */
 
 
@@ -2558,20 +2711,15 @@ function escapeHtml(value) {
 
     char => ({
 
-      "&":
-        "&amp;",
+      "&":"&amp;",
 
-      "<":
-        "&lt;",
+      "<":"&lt;",
 
-      ">":
-        "&gt;",
+      ">":"&gt;",
 
-      "'":
-        "&#39;",
+      "'":"&#39;",
 
-      '"':
-        "&quot;"
+      '"':"&quot;"
 
     })[char]
 
